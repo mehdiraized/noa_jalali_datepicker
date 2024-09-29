@@ -1,5 +1,23 @@
+/* width */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px rgba(234, 70, 70, 0);
+    border-radius: 20px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #989898;
+    border-radius: 20px;
+}
+
 .datepicker-input {
     border: 1px solid;
+    max-width: 370px;
     margin-bottom: 10px;
     color: inherit; /* Inherit from props */
     font-family: inherit; /* Inherit font-family from parent */
@@ -103,8 +121,12 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
-    max-height: 390px;
+    max-height: 290px;
     overflow-y: scroll;
+}
+
+.datepicker-months-grid {
+    overflow-y: unset !important;
 }
 
 .datepicker-month,

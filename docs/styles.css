@@ -1,37 +1,136 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px rgba(234, 70, 70, 0);
+    border-radius: 20px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #989898;
+    border-radius: 20px;
+}
+
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
+    line-height: 1.6;
     background-color: #f4f4f4;
+    color: #333;
 }
 
 .container {
-    display: grid;
-    grid-template-columns: 2fr 1fr; /* 2 columns for desktop */
-    gap: 20px; /* Space between columns */
-    margin: 0 20px; /* Horizontal margin for desktop */
-}
-
-.content {
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.image img {
-    max-width: 100%; /* Responsive image */
+header {
+    background-color: #212121;
+    color: white;
+    text-align: center;
+    padding: 50px 0;
+}
+
+header h1 {
+    font-size: 3rem;
+}
+
+header p {
+    font-size: 1.2rem;
+    margin-top: 10px;
+}
+
+.section {
+    padding: 20px;
+}
+
+#features {
+    background-color: #fff;
+}
+
+#features h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 2.5rem;
+}
+
+.features-grid {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.feature {
+    flex-basis: 30%;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.feature img {
+    width: 100%;
+    height: auto;
     border-radius: 8px;
 }
 
-/* Responsive styles */
-@media (max-width: 768px) {
-    .container {
-        grid-template-columns: 1fr; /* Single column for mobile */
-        margin: 0; /* Remove horizontal margin for mobile */
-    }
+.feature h3 {
+    margin-top: 10px;
+    font-size: 1.4rem;
+}
 
-    .image {
-        order: -1; /* Show image first on mobile */
-    }
+#installation pre, #usage pre {
+    background-color: #333;
+    color: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+.install-steps {
+    display: flex;
+    justify-content: space-between;
+}
+
+.install-steps .step {
+    flex-basis: 48%;
+}
+
+#authors ul {
+    list-style-type: none;
+    text-align: center;
+}
+
+#authors ul li {
+    display: inline-block;
+    margin: 0 10px;
+    font-size: 1.2rem;
+}
+
+#authors ul li a {
+    color: #212121;
+    text-decoration: underline;
+}
+
+#authors ul li a:hover {
+    text-decoration: underline;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+}
+
+footer p {
+    font-size: 1rem;
 }

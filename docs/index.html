@@ -4,159 +4,133 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kara Persian DatePicker</title>
-    <link rel="stylesheet" href="./styles.css">
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
-        }
-
-        .container {
-            display: grid;
-            grid-template-columns: 2fr 1fr; /* 2 columns for desktop */
-            gap: 20px; /* Space between columns */
-            margin: 0 20px; /* Horizontal margin for desktop */
-        }
-
-        .content {
-            padding: 20px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .image img {
-            max-width: 100%; /* Responsive image */
-            border-radius: 8px;
-        }
-
-        /* Responsive styles */
-        @media (max-width: 768px) {
-            .container {
-                grid-template-columns: 1fr; /* Single column for mobile */
-                margin: 0; /* Remove horizontal margin for mobile */
-            }
-
-            .image {
-                order: -1; /* Show image first on mobile */
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <h1>Kara Persian DatePicker</h1>
+            <p>A modern, Persian date picker for React applications with light and dark themes.</p>
+        </div>
+    </header>
 
-<div class="container">
-    <div class="content">
-        <h1>Kara Persian DatePicker</h1>
-        <p>A modern, Persian date picker for React applications. This date picker supports both light and dark themes, providing a sleek and user-friendly interface for selecting dates.</p>
+    <!-- Features Section -->
+    <section id="features" class="section">
+        <div class="container">
+            <h2>Features</h2>
+            <div class="features-grid">
+                <div class="feature">
+                    <img src="./images/light_preview.png" alt="Light Theme">
+                    <h3>Light Theme</h3>
+                </div>
+                <div class="feature">
+                    <img src="./images/dark_preview.png" alt="Dark Theme">
+                    <h3>Dark Theme</h3>
+                </div>
+                <div class="feature">
+                    <img src="./images/change_color_orange.png" alt="Customization">
+                    <h3>Customization</h3>
+                </div>
+                <div class="feature">
+                    <img src="./images/change_color.png" alt="Modern Design">
+                    <h3>Modern Design</h3>
+                </div>
+                <div class="feature">
+                    <img src="./images/year_selector.png" alt="Responsive">
+                    <h3>Year List</h3>
+                </div>
+                <div class="feature">
+                    <img src="./images/month_selector.png" alt="User Friendly">
+                    <h3>Month List</h3>
+                </div>
 
-        <h2>Installation</h2>
-        <h3>npm</h3>
-        <pre><code>npm install kara-persian-datepicker</code></pre>
+            </div>
+        </div>
+    </section>
 
-        <h3>yarn</h3>
-        <pre><code>yarn add kara-persian-datepicker</code></pre>
+    <!-- Installation Section -->
+    <section id="installation" class="section">
+        <div class="container">
+            <h2>How to Install</h2>
+            <div class="install-steps">
+                <div class="step">
+                    <h3>Install with npm</h3>
+                    <pre><code>npm install kara-persian-datepicker</code></pre>
+                </div>
+                <div class="step">
+                    <h3>Install with yarn</h3>
+                    <pre><code>yarn add kara-persian-datepicker</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <h2>Usage</h2>
-        <pre><code>import React, { useState } from 'react';
+
+    <!-- Usage Section -->
+
+    <section id="transition" class="section">
+        <div class="container">
+            <h2>Get Started</h2>
+            <p>After installing the package via <code>npm</code> or <code>yarn</code>, you can easily integrate the <strong>Kara Persian DatePicker</strong> into your React project. The following usage example demonstrates how to import the date picker, manage its state, and customize its appearance using various props. Whether you prefer a light or dark theme, our date picker is fully customizable to match your design requirements. Check out the code snippet below to see how simple it is to use!</p>
+        </div>
+    </section>
+
+    <section id="usage" class="section">
+        <div class="container">
+            <h2>Usage Example</h2>
+            <pre><code>
+import React, { useState } from 'react';
 import { DatePicker } from 'kara-persian-datepicker';
 import 'kara-persian-datepicker/dist/index.css';
 
-const App: React.FC = () => {
-    const [selectedDate, setSelectedDate] = useState<string | null>(null);
+const App = () => {
+    const [selectedDate, setSelectedDate] = useState(null);
 
     return (
-        <div>
-            <h1>Kara Persian DatePicker</h1>
-            <DatePicker
-                    value={selectedDate}
-                    onChange={(date) => {
-                    console.log(date);
-                    setSelectedDate(date);
-                }}
+        &lt;div&gt;
+            &lt;h1&gt;Kara Persian DatePicker&lt;/h1&gt;
+            &lt;DatePicker
+                value={selectedDate}
+                onChange={(date) => setSelectedDate(date)}
                 classStyle={{
-                    backgroundColor: '#000', // dark background
-                    textColor: '#fff', // white text
-                    textPlaceholder: 'Pick a date', // Placeholder text in Persian
-                    textAlign: 'right', // Text alignment
-                    size: 'md', // Size of the date picker
-                    radius: '8px', // Border radius for rounded corners
-                    borderColor: '#E2e8f0', // Border color for the date picker
-                    selectedDayColor: '#007BFF', // Blue color for the selected day
-                    inputStyle: { padding: '10px', fontSize: '16px' }, // Custom input styles
+                    backgroundColor: '#000',
+                    textColor: '#fff',
+                    textPlaceholder: 'Pick a date',
+                    textAlign: 'right',
+                    size: 'md',
+                    radius: '8px',
+                    borderColor: '#E2e8f0',
+                    selectedDayColor: '#007BFF',
+                    inputStyle: { padding: '10px', fontSize: '16px' }
                 }}
-                disabled={false} // Change to true to disable the date picker
-                theme="dark" // Change to 'light' for light theme
-            />
-            {selectedDate && <p>Selected Date: {selectedDate}</p>}
-        </div>
+                theme="dark"
+            /&gt;
+        &lt;/div&gt;
     );
 };
 
-export default App;</code></pre>
+export default App;
+            </code></pre>
+        </div>
+    </section>
 
-        <h2>Features</h2>
-        <ul>
-            <li><strong>Light and Dark Themes</strong>: Easily switch between light and dark modes.</li>
-            <li><strong>Modern Design</strong>: Flat design with rounded corners for a sleek look.</li>
-            <li><strong>User-Friendly</strong>: Simple interface for selecting dates.</li>
-            <li><strong>Responsive</strong>: Works well on various screen sizes.</li>
-        </ul>
+    <!-- Authors Section -->
+    <section id="authors" class="section">
+        <div class="container">
+            <h2>Authors</h2>
+            <ul>
+                <li><a href="https://github.com/YousefZare2000" target="_blank">Yousef Zare</a></li>
+                <li><a href="https://github.com/fastpanda99" target="_blank">FastPanda99</a></li>
+            </ul>
+        </div>
+    </section>
 
-        <h2>Props</h2>
-        <table>
-            <thead>
-            <tr>
-                <th>Prop</th>
-                <th>Type</th>
-                <th>Description</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td><code>value</code></td>
-                <td><code>string</code></td>
-                <td>string or null</td>
-            </tr>
-            <tr>
-                <td><code>disabled</code></td>
-                <td><code>boolean</code></td>
-                <td>Optional. If true, disables the date picker.</td>
-            </tr>
-            <tr>
-                <td><code>theme</code></td>
-                <td><code>string</code></td>
-                <td>Optional. Allows you to set the theme ('light' or 'dark'). Default is 'light'.</td>
-            </tr>
-            <tr>
-                <td><code>classStyle</code></td>
-                <td><code>object</code></td>
-                <td>Optional</td>
-            </tr>
-            <tr>
-                <td><code>onChange</code></td>
-                <td><code>(date: Date) => void</code></td>
-                <td>Callback function called when a date is selected. Receives the selected date as an argument.</td>
-            </tr>
-            </tbody>
-        </table>
-
-        <h2>Customization</h2>
-        <p>You can customize the appearance of the date picker by modifying the CSS file or overriding styles in your own stylesheets. The <code>classStyle</code> prop allows for extensive customization, including background color, text color, and size.</p>
-
-        <h2>Authors</h2>
-        <ul>
-            <li><strong>Saleh Azimidokht</strong>: <a href="https://github.com/parsbytes">GitHub Profile</a></li>
-            <li><strong>Yousef Zare</strong>: <a href="https://github.com/yousefZare2000">GitHub Profile</a></li>
-        </ul>
-    </div>
-    <div class="image">
-        <img src="your-image.jpg" alt="Kara Persian DatePicker">
-    </div>
-</div>
-
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Kara Persian DatePicker. All rights reserved.</p>
+        </div>
+    </footer>
 </body>
 </html>
