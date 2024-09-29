@@ -1,23 +1,11 @@
 {
   "name": "kara-persian-datepicker",
-  "version": "0.0.5",
-  "main": "dist/index.js",
-  "scripts": {
-    "build": "rollup -c",
-    "prepublishOnly": "npm run build"
+  "version": "1.0.0",
+  "author": {
+    "name": "FastPanda99",
+    "email": "fastpanda99@gmail.com",
+    "url": "https://github.com/fastpanda99"
   },
-  
-  "files": [
-    "dist/**/*",
-    "README.md"
-  ],
-  "keywords": [
-    "datepicker",
-    "react",
-    "typescript",
-    "next",
-    "nextjs"
-  ],
   "contributors": [
     {
       "name": "Yousef Zare",
@@ -29,6 +17,27 @@
       "email": "fastpanda99@gmail.com",
       "url": "https://github.com/fastpanda99"
     }
+  ],
+  "homepage": "https://fastpanda99.github.io/kara_persian_datepicker/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fastpanda99/kara_persian_datepicker"
+  },
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "rollup -c",
+    "prepublishOnly": "npm run build"
+  },
+  "files": [
+    "dist/**/*",
+    "README.md"
+  ],
+  "keywords": [
+    "datepicker",
+    "react",
+    "typescript",
+    "next",
+    "nextjs"
   ],
   "license": "MIT",
   "devDependencies": {
