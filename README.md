@@ -7,8 +7,8 @@ sleek and user-friendly interface for selecting dates.
 
 <div style="flex: 1">
 <div style="display:flex;flex-basis:30%;gap:20px">
-<img src="https://fastpanda99.github.io/kara_persian_datepicker/images/light_preview.png" alt="Kara Persian Datepicker Screenshot" width="400" height="470">
-<img src="https://fastpanda99.github.io/kara_persian_datepicker/images/dark_preview.png" alt="Kara Persian Datepicker Screenshot" width="400" height="470">
+<img src="https://fastpanda99.github.io/kara_persian_datepicker/images/light_preview.png" alt="Kara Persian Datepicker Screenshot" width="300" height="320">
+<img src="https://fastpanda99.github.io/kara_persian_datepicker/images/dark_preview.png" alt="Kara Persian Datepicker Screenshot" width="300" height="320">
 </div>
 </div>
 
