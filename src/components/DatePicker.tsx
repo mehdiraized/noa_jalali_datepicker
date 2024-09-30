@@ -146,7 +146,7 @@ const DatePicker: React.FC<DatePickerProps> = ({onChange, value, disabled = fals
 
   return (
     <div ref={datePickerRef}
-         style={{borderRadius: `${radius}px`, direction: 'rtl', width: '370px', backgroundColor: backgroundColor}}>
+         style={{borderRadius: `${radius}px`, direction: 'rtl', backgroundColor: backgroundColor}}>
       <div
         className="datepicker-input"
         onClick={toggleDatePicker}
