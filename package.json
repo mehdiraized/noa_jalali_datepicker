@@ -1,6 +1,6 @@
 {
   "name": "kara-persian-datepicker",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "author": {
     "name": "Yousef Zare",
     "email": "yoosof.zare.2000@gmail.com",
@@ -37,7 +37,13 @@
     "react",
     "typescript",
     "next",
-    "nextjs"
+    "nextjs",
+    "persian",
+    "persian date",
+    "jalali date",
+    "jdate next",
+    "farsi date",
+    "taghvim farsi"
   ],
   "license": "MIT",
   "devDependencies": {
