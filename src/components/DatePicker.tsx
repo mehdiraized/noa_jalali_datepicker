@@ -42,6 +42,10 @@ const generateDaysInMonth = (year: number, month: number) => {
 const persianMonths = ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'];
 const persianWeeks = ['ش', 'ی', 'د', 'س', 'چ', 'پ', 'ج']; // Saturday to Friday
 
+const convertToJalaliDisplay = (latinDate: string) => {
+  return moment(latinDate, 'YYYY-MM-DD').locale('fa').format('jYYYY/jMM/jDD');
+};
+
 const DatePicker: React.FC<DatePickerProps> = ({onChange, value, disabled = false, theme = 'light', classStyle}) => {
   const {
     backgroundColor = theme === 'dark' ? '#09090B' : '#fff',
@@ -59,8 +63,13 @@ const DatePicker: React.FC<DatePickerProps> = ({onChange, value, disabled = fals
   const [selectedDate, setSelectedDate] = useState<{ year: number; month: number; day: number } | null>(
     initialDate ? {year: initialDate.jYear(), month: initialDate.jMonth() + 1, day: initialDate.jDate()} : null
   );
+
+  const displayedDate = selectedDate
+      ? convertToJalaliDisplay(`${selectedDate.year}/${selectedDate.month}/${selectedDate.day}`)
+      : textPlaceholder;
+
   const [currentYear, setCurrentYear] = useState(moment().jYear());
-  const currentYearRef = useRef(moment().jYear());
+  // const currentYearRef = useRef(moment().jYear());
   const [currentMonth, setCurrentMonth] = useState(moment().jMonth() + 1);
   const [view, setView] = useState<'day' | 'month' | 'year'>('day');
   const [visible, setVisible] = useState(false);
@@ -150,6 +159,7 @@ const DatePicker: React.FC<DatePickerProps> = ({onChange, value, disabled = fals
       <div
         className="datepicker-input"
         onClick={toggleDatePicker}
+        tabIndex={0}
         style={{
           color: selectedDate ? textColor : '#6B7280',
           width: '100%',
@@ -164,7 +174,7 @@ const DatePicker: React.FC<DatePickerProps> = ({onChange, value, disabled = fals
           ...inputStyle,
         }}
       >
-        {selectedDate ? `${selectedDate.year}/${selectedDate.month}/${selectedDate.day}` : textPlaceholder}
+        {displayedDate}
       </div>
       {visible && !disabled && (
         <div className="datepicker-popup" style={{borderColor: borderColor, borderRadius: `${radius}px`}}>
@@ -178,6 +188,7 @@ const DatePicker: React.FC<DatePickerProps> = ({onChange, value, disabled = fals
             <div
               className="datepicker-arrow"
               onClick={handlePrevMonth}
+              tabIndex={0}
               style={{
                 cursor: 'pointer',
                 padding: '0 5px',
@@ -195,10 +206,13 @@ const DatePicker: React.FC<DatePickerProps> = ({onChange, value, disabled = fals
               {view === 'day' ? (
                 <span>
                   <span onClick={() => setView('month')}
+                        tabIndex={0}
                         className={'datepicker-month-button'}
                         style={{color: textColor}}>{persianMonths[currentMonth - 1]}</span>
                   <span style={{margin: '0 6px'}}/>
-                  <span onClick={() => setView('year')} className={'datepicker-year-button'}
+                  <span onClick={() => setView('year')}
+                        tabIndex={0}
+                        className={'datepicker-year-button'}
                         style={{color: textColor}}> {currentYear}</span>
                 </span>
               ) : view === 'month' ? (
@@ -211,6 +225,7 @@ const DatePicker: React.FC<DatePickerProps> = ({onChange, value, disabled = fals
             <div
               className="datepicker-arrow"
               onClick={handleNextMonth}
+              tabIndex={0}
               style={{
                 cursor: 'pointer',
                 padding: '0 5px',
