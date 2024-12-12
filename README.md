@@ -12,9 +12,10 @@ sleek and user-friendly interface for selecting dates.
 </div>
 </div>
 
-### View more [Demo](https://fastpanda99.github.io/kara_persian_datepicker/)
+## ScreenShots
 
-##
+Demo page: [Kara Persian Datepicker](https://fastpanda99.github.io/kara_persian_datepicker/)
+
 
 ## Installation
 
@@ -47,17 +48,18 @@ const App: React.FC = () => {
             <h1>Kara Persian DatePicker</h1>
             <DatePicker
                 value={selectedDate}
-                textPlaceholder: 'Pick a date', // Placeholder text in Persian
-                onChange={(date) => {
-                    console.log(date);
-                    setSelectedDate(date);
-                }}
-                classStyle={{
-                    radius: 8, // Border radius for rounded corners
-                    borderColor: '#E2e8f0', // Border color for the date picker
-                    selectedDayColor: '#007BFF', // Blue color for the selected day
-                    inputStyle: {padding: '10px', fontSize: '16px'}, // Custom input styles
-                }}
+                textPlaceholder: 'Pick a date'
+            , // Placeholder text in Persian
+            onChange={(date) => {
+            console.log(date);
+            setSelectedDate(date);
+        }}
+            classStyle={{
+            radius: 8, // Border radius for rounded corners
+            borderColor: '#E2e8f0', // Border color for the date picker
+            selectedDayColor: '#007BFF', // Blue color for the selected day
+            inputStyle: {padding: '10px', fontSize: '16px'}, // Custom input styles
+        }}
             />
             {selectedDate && <p>Selected Date: {selectedDate}</p>}
         </div>
