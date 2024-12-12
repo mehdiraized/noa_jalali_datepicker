@@ -13,7 +13,7 @@ interface DatePickerProps {
     textColor?: string;
     textAlign?: 'right' | 'left' | 'center';
     size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-    radius?: string;
+    radius?: number;
     borderColor?: string;
     selectedDayColor?: string;
     inputStyle?: React.CSSProperties;
