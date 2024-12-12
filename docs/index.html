@@ -99,20 +99,16 @@ const App = () => {
         &lt;div&gt;
             &lt;h1&gt;Kara Persian DatePicker&lt;/h1&gt;
             &lt;DatePicker
+                textPlaceholder: 'Pick a date',
                 value={selectedDate}
                 onChange={(date) => setSelectedDate(date)}
                 classStyle={{
-                    backgroundColor: '#000',
-                    textColor: '#fff',
-                    textPlaceholder: 'Pick a date',
-                    textAlign: 'right',
                     size: 'md',
-                    radius: '8px',
+                    radius: 8,
                     borderColor: '#E2e8f0',
                     selectedDayColor: '#007BFF',
                     inputStyle: { padding: '10px', fontSize: '16px' }
                 }}
-                theme="dark"
             /&gt;
         &lt;/div&gt;
     );
