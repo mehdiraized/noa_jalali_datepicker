@@ -17,7 +17,6 @@
 
 .datepicker-input {
     border: 1px solid;
-    max-width: 370px;
     margin-bottom: 10px;
     color: inherit; /* Inherit from props */
     font-family: inherit; /* Inherit font-family from parent */
@@ -30,7 +29,7 @@
     position: absolute;
     width: 370px;
     margin-top: 5px;
-    z-index: 10000;
+    z-index: 9999999 !important;
     padding: 15px;
 }
 

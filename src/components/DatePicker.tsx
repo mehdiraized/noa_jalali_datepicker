@@ -7,10 +7,10 @@ interface DatePickerProps {
   value: string | null;
   disabled?: boolean;
   theme?: 'dark' | 'light';
+  textPlaceholder?: string;
   classStyle?: {
     backgroundColor?: string;
     textColor?: string;
-    textPlaceholder?: string;
     textAlign?: 'right' | 'left' | 'center';
     size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
     radius?: string;
@@ -46,11 +46,10 @@ const convertToJalaliDisplay = (latinDate: string) => {
   return moment(latinDate, 'YYYY-MM-DD').locale('fa').format('jYYYY/jMM/jDD');
 };
 
-const DatePicker: React.FC<DatePickerProps> = ({onChange, value, disabled = false, theme = 'light', classStyle}) => {
+const DatePicker: React.FC<DatePickerProps> = ({onChange, value, disabled = false, theme = 'light',textPlaceholder = 'تاریخ انتخاب کنید', classStyle}) => {
   const {
     backgroundColor = theme === 'dark' ? '#09090B' : '#fff',
     textColor = theme === 'dark' ? '#fff' : '#09090B',
-    textPlaceholder = 'تاریخ انتخاب کنید',
     textAlign = 'right',
     size = 'sm',
     radius = '6',
@@ -58,6 +57,8 @@ const DatePicker: React.FC<DatePickerProps> = ({onChange, value, disabled = fals
     selectedDayColor = theme === 'dark' ? '#fff' : '#000',
     inputStyle,
   } = classStyle || {};
+
+  const [isFocused, setIsFocused] = React.useState(false);
 
   const initialDate = value ? moment.from(value, 'fa', 'jYYYY/jMM/jDD') : null;
   const [selectedDate, setSelectedDate] = useState<{ year: number; month: number; day: number } | null>(
@@ -158,7 +159,14 @@ const DatePicker: React.FC<DatePickerProps> = ({onChange, value, disabled = fals
          style={{borderRadius: `${radius}px`, direction: 'rtl', backgroundColor: backgroundColor}}>
       <div
         className="datepicker-input"
-        onClick={toggleDatePicker}
+        onClick={()=>{
+          if(!isFocused) toggleDatePicker()
+        }}
+        onFocus={() => {
+          toggleDatePicker()
+          setIsFocused(true)
+        }}
+        onBlur={() => setIsFocused(false)}
         tabIndex={0}
         style={{
           color: selectedDate ? textColor : '#6B7280',
@@ -166,11 +174,12 @@ const DatePicker: React.FC<DatePickerProps> = ({onChange, value, disabled = fals
           textAlign: textAlign,
           fontSize: SizeMap[size].inputText,
           padding: '6px 12px',
-          borderColor: borderColor,
+          borderColor: isFocused ? selectedDayColor : borderColor,
           boxShadow: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
           cursor: disabled ? 'not-allowed' : 'pointer',
           opacity: disabled ? 0.5 : 1,
           borderRadius: `${radius}px`,
+          outline: 'none',
           ...inputStyle,
         }}
       >
