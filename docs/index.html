@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-          content="Noa Jalali DatePicker - A modern, customizable Persian date picker for React applications with light and dark themes.">
+          content="Kara Persian DatePicker - A modern, customizable Persian date picker for React applications with light and dark themes.">
     <meta name="keywords"
-          content="Persian DatePicker, React, Noa, light theme, dark theme, customization, jalali date, jalali date">
+          content="Persian DatePicker, React, Kara, light theme, dark theme, customization, persian date, jalali date">
     <meta name="author" content="Yousef Zare, FastPanda99">
-    <title>Noa Jalali DatePicker</title>
+    <title>Kara Persian DatePicker</title>
     <link rel="stylesheet" href="./styles.css">
     <meta name="google-site-verification" content="JCDrOstDCHjV8NjaViUwF0X62l8ZsvlUi30Bf3l5f50" />
 </head>
@@ -16,8 +16,8 @@
 <!-- Header Section -->
 <header>
     <div class="container">
-        <h1>Noa Jalali DatePicker</h1>
-        <p>A modern, jalali date picker for React applications with light and dark themes.</p>
+        <h1>Kara Persian DatePicker</h1>
+        <p>A modern, Persian date picker for React applications with light and dark themes.</p>
     </div>
 </header>
 
@@ -62,11 +62,11 @@
             <div class="install-steps">
                 <article class="step">
                     <h3>Install with npm</h3>
-                    <pre><code>npm install noa-jalali-datepicker</code></pre>
+                    <pre><code>npm install kara-persian-datepicker</code></pre>
                 </article>
                 <article class="step">
                     <h3>Install with yarn</h3>
-                    <pre><code>yarn add noa-jalali-datepicker</code></pre>
+                    <pre><code>yarn add kara-persian-datepicker</code></pre>
                 </article>
             </div>
         </div>
@@ -77,7 +77,7 @@
         <div class="container">
             <h2>Get Started</h2>
             <p>After installing the package via <code>npm</code> or <code>yarn</code>, you can easily integrate the
-                <strong>Noa Jalali DatePicker</strong> into your React project. The following usage example
+                <strong>Kara Persian DatePicker</strong> into your React project. The following usage example
                 demonstrates how to import the date picker, manage its state, and customize its appearance using various
                 props. Whether you prefer a light or dark theme, our date picker is fully customizable to match your
                 design requirements. Check out the code snippet below to see how simple it is to use!</p>
@@ -89,19 +89,26 @@
             <h2>Usage Example</h2>
             <pre><code>
 import React, { useState } from 'react';
-import { DatePicker } from 'noa-jalali-datepicker';
-import 'noa-jalali-datepicker/dist/index.css';
+import { DatePicker } from 'kara-persian-datepicker';
+import 'kara-persian-datepicker/dist/index.css';
 
 const App = () => {
     const [selectedDate, setSelectedDate] = useState(null);
 
     return (
         &lt;div&gt;
-            &lt;h1&gt;Noa Jalali DatePicker&lt;/h1&gt;
+            &lt;h1&gt;Kara Persian DatePicker&lt;/h1&gt;
             &lt;DatePicker
                 textPlaceholder: 'Pick a date',
                 value={selectedDate}
                 onChange={(date) => setSelectedDate(date)}
+                classStyle={{
+                    size: 'md',
+                    radius: 8,
+                    borderColor: '#E2e8f0',
+                    selectedDayColor: '#007BFF',
+                    inputStyle: { padding: '10px', fontSize: '16px' }
+                }}
             /&gt;
         &lt;/div&gt;
     );
@@ -118,7 +125,7 @@ export default App;
             <h2>Authors</h2>
             <ul>
                 <li><a href="https://github.com/YousefZare2000" target="_blank">Yousef Zare</a></li>
-                <li><a href="https://github.com/freecyberhawk" target="_blank">FreeCyberHawk</a></li>
+                <li><a href="https://github.com/fastpanda99" target="_blank">FastPanda99</a></li>
             </ul>
         </div>
     </section>
@@ -127,7 +134,7 @@ export default App;
 <!-- Footer -->
 <footer>
     <div class="container">
-        <p>&copy; 2024 Noa Jalali DatePicker. All rights reserved.</p>
+        <p>&copy; 2024 Kara Persian DatePicker. All rights reserved.</p>
     </div>
 </footer>
 </body>
