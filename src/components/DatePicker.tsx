@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import moment from 'jalali-moment';
 
 // Helper function to check if the year is a leap year
@@ -45,11 +45,11 @@ interface DatePickerProps {
 }
 
 const SizeMap = {
-    xs: { base: 'text-xs', header: 'text-sm' },
-    sm: { base: 'text-sm', header: 'text-base' },
-    md: { base: 'text-base', header: 'text-lg' },
-    lg: { base: 'text-lg', header: 'text-xl' },
-    xl: { base: 'text-xl', header: 'text-2xl' },
+    xs: {base: 'text-xs', header: 'text-sm'},
+    sm: {base: 'text-sm', header: 'text-base'},
+    md: {base: 'text-base', header: 'text-lg'},
+    lg: {base: 'text-lg', header: 'text-xl'},
+    xl: {base: 'text-xl', header: 'text-2xl'},
 };
 
 const DatePicker: React.FC<DatePickerProps> = ({
@@ -60,30 +60,37 @@ const DatePicker: React.FC<DatePickerProps> = ({
                                                    size = 'md',
                                                    dir = 'rtl',
                                                    // Tailwind classes with defaults
-                                                   className = '',
+                                                   className = 'text-sm',
                                                    containerClassName = '',
-                                                   inputClassName = '',
-                                                   popupClassName = '',
+                                                   inputClassName = 'text-sm',
+                                                   popupClassName = "rounded-md border bg-card text-card-foreground shadow p-sm absolute",
                                                    headerClassName = '',
-                                                   weeksClassName = '',
+                                                   weeksClassName = 'datepicker-header',
                                                    weekItemClassName = '',
-                                                   daysClassName = '',
+                                                   daysClassName = 'datepicker-days',
                                                    dayClassName = '',
-                                                   selectedDayClassName = '',
+                                                   selectedDayClassName = 'border-transparent bg-primary text-primary-foreground',
                                                    holidayClassName = '',
                                                    todayClassName = '',
                                                    monthsGridClassName = '',
                                                    monthItemClassName = '',
-                                                   selectedMonthClassName = '',
+                                                   selectedMonthClassName = 'border-transparent bg-primary text-primary-foreground',
                                                    yearsGridClassName = '',
                                                    yearItemClassName = '',
-                                                   selectedYearClassName = '',
+                                                   selectedYearClassName = 'border-transparent bg-primary text-primary-foreground',
                                                    arrowClassName = '',
                                                }) => {
     const [isFocused, setIsFocused] = useState(false);
-    const initialDate = value ? moment(value, 'jYYYY/jMM/jDD').locale('fa') : null;
+    const initialDate = value ? moment(value).locale('fa') : null;
+
+
+    // Set up React state based on the Jalali date
     const [selectedDate, setSelectedDate] = useState<{ year: number; month: number; day: number } | null>(
-        initialDate ? { year: initialDate.jYear(), month: initialDate.jMonth(), day: initialDate.jDate() } : null
+        initialDate ? {
+            year: initialDate.jYear(),
+            month: initialDate.jMonth(), // month is zero-indexed in moment.js, so add 1
+            day: initialDate.jDate()
+        } : null
     );
     const [currentYear, setCurrentYear] = useState(moment().jYear());
     const [currentMonth, setCurrentMonth] = useState(moment().jMonth() + 1);
@@ -113,8 +120,8 @@ const DatePicker: React.FC<DatePickerProps> = ({
 
     const defaultClasses = {
         container: `relative ${containerClassName}`,
-        input: `w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-opacity-50 ${SizeMap[size].base} ${inputClassName}`,
-        popup: `absolute mt-1 bg-white rounded-lg shadow-lg z-50 ${popupClassName}`,
+        input: `w-full px-3 h-9 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-opacity-50 ${SizeMap[size].base} ${inputClassName}`,
+        popup: `absolute mt-1 bg-green-500 rounded-lg shadow-lg z-50 ${popupClassName}`,
         header: `flex items-center justify-between p-2 border-b ${headerClassName}`,
         weeks: `grid grid-cols-7 gap-1 p-2 text-center ${weeksClassName}`,
         weekItem: `${weekItemClassName}`,
@@ -123,17 +130,17 @@ const DatePicker: React.FC<DatePickerProps> = ({
         selectedDay: `bg-blue-500 text-white hover:bg-blue-600 ${selectedDayClassName}`,
         holiday: `text-red-500 ${holidayClassName}`,
         today: `ring-2 ring-blue-500 ${todayClassName}`,
-        monthsGrid: `grid grid-cols-3 gap-2 p-2 ${monthsGridClassName}`,
+        monthsGrid: `grid grid-cols-3 gap-6 p-2 ${monthsGridClassName}`,
         monthItem: `p-2 text-center rounded-md hover:bg-gray-100 cursor-pointer ${monthItemClassName}`,
         selectedMonth: `bg-blue-500 text-white hover:bg-blue-600 ${selectedMonthClassName}`,
-        yearsGrid: `grid grid-cols-3 gap-2 p-2 ${yearsGridClassName}`,
+        yearsGrid: `grid grid-cols-3 gap-6 p-2 max-h-[300px] overflow-y-scroll ${yearsGridClassName}`,
         yearItem: `p-2 text-center rounded-md hover:bg-gray-100 cursor-pointer ${yearItemClassName}`,
         selectedYear: `bg-blue-500 text-white hover:bg-blue-600 ${selectedYearClassName}`,
         arrow: `cursor-pointer p-1 rounded hover:bg-gray-100 ${arrowClassName}`,
     };
 
     const daysInMonth = generateDaysInMonth(currentYear, currentMonth);
-    const days = Array.from({ length: daysInMonth }, (_, day) => ({
+    const days = Array.from({length: daysInMonth}, (_, day) => ({
         year: currentYear,
         month: currentMonth,
         day: day + 1,
@@ -207,10 +214,13 @@ const DatePicker: React.FC<DatePickerProps> = ({
                     <div className={defaultClasses.header}>
                         <button
                             className={defaultClasses.arrow}
-                            onClick={handlePrevMonth}
+                            onClick={(e)=>{
+                                e.preventDefault()
+                                handlePrevMonth()
+                            }}
                         >
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7"/>
                             </svg>
                         </button>
 
@@ -232,10 +242,13 @@ const DatePicker: React.FC<DatePickerProps> = ({
 
                         <button
                             className={defaultClasses.arrow}
-                            onClick={handleNextMonth}
+                            onClick={(e)=>{
+                                e.preventDefault()
+                                handleNextMonth()
+                            }}
                         >
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7"/>
                             </svg>
                         </button>
                     </div>
@@ -250,8 +263,8 @@ const DatePicker: React.FC<DatePickerProps> = ({
                                 ))}
                             </div>
                             <div className={defaultClasses.days}>
-                                {Array.from({ length: weekDayOffset }, (_, i) => (
-                                    <div key={`empty-${i}`} />
+                                {Array.from({length: weekDayOffset}, (_, i) => (
+                                    <div key={`empty-${i}`}/>
                                 ))}
                                 {days.map((day) => (
                                     <div
@@ -301,7 +314,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
 
                     {view === 'year' && (
                         <div className={defaultClasses.yearsGrid}>
-                            {Array.from({ length: 12 }, (_, i) => currentYear - 4 + i).map((year) => (
+                            {Array.from({length: 110}, (_, i) => currentYear - 100 + i).sort((a, b) => b - a).map((year) => (
                                 <div
                                     key={year}
                                     className={`
@@ -310,7 +323,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
                                     `}
                                     onClick={() => {
                                         setCurrentYear(year);
-                                        setView('day');
+                                        setView('month');
                                     }}
                                 >
                                     {year}
