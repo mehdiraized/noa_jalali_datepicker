@@ -1,4 +1,4 @@
-# Kara Persian DatePicker
+# Noa Jalali DatePicker
 
 A modern, Persian date picker for React applications. This date picker supports both light and dark themes, providing a
 sleek and user-friendly interface for selecting dates.
@@ -7,14 +7,14 @@ sleek and user-friendly interface for selecting dates.
 
 <div style="flex: 1">
 <div style="display:flex;flex-basis:30%;gap:20px">
-<img src="https://fastpanda99.github.io/kara_persian_datepicker/images/light_preview.png" alt="Kara Persian Datepicker Screenshot" width="300" height="350">
-<img src="https://fastpanda99.github.io/kara_persian_datepicker/images/dark_preview.png" alt="Kara Persian Datepicker Screenshot" width="300" height="350">
+<img src="https://freecyberhawk.github.io/noa_persian_datepicker/images/light_preview.png" alt="Noa Jalali Datepicker Screenshot" width="300" height="350">
+<img src="https://freecyberhawk.github.io/noa_persian_datepicker/images/dark_preview.png" alt="Noa Jalali Datepicker Screenshot" width="300" height="350">
 </div>
 </div>
 
 ## ScreenShots
 
-Demo page: [Kara Persian Datepicker](https://fastpanda99.github.io/kara_persian_datepicker/)
+Demo page: [Noa Jalali Datepicker](https://fastpanda99.github.io/kara_persian_datepicker/)
 
 
 ## Installation
@@ -24,13 +24,13 @@ Demo page: [Kara Persian Datepicker](https://fastpanda99.github.io/kara_persian_
 To install the package via npm, run:
 
 ```bash
-npm install kara-persian-datepicker
+npm install noa-persian-datepicker
 ```
 
 ### yarn
 
 ```bash
-yarn add kara-persian-datepicker
+yarn add noa-persian-datepicker
 ```
 
 ## Usage
@@ -45,7 +45,7 @@ const App: React.FC = () => {
 
     return (
         <div>
-            <h1>Kara Persian DatePicker</h1>
+            <h1>Noa Jalali DatePicker</h1>
             <DatePicker
                 value={selectedDate}
                 textPlaceholder: 'Pick a date'
@@ -53,12 +53,6 @@ const App: React.FC = () => {
             onChange={(date) => {
             console.log(date);
             setSelectedDate(date);
-        }}
-            classStyle={{
-            radius: 8, // Border radius for rounded corners
-            borderColor: '#E2e8f0', // Border color for the date picker
-            selectedDayColor: '#007BFF', // Blue color for the selected day
-            inputStyle: {padding: '10px', fontSize: '16px'}, // Custom input styles
         }}
             />
             {selectedDate && <p>Selected Date: {selectedDate}</p>}
@@ -85,7 +79,8 @@ export default App;
 | `value`      | `string`               | string Or null                                                                               |
 | `disabled`   | `boolean`              | Optional. If true, disables the date picker.                                                 |
 | `theme`      | `string`               | Optional. Allows you to set the theme ('light' or 'dark'). Default is 'light'.               |
-| `classStyle` | `object`               | Optional                                                                                     |
+| `styles`     | `object`               | Optional                                                                                     |
+| `classNames` | `object`               | Optional                                                                                     |
 | `onChange`   | `(date: Date) => void` | Callback function called when a date is selected. Receives the selected date as an argument. |
 
 ## classStyle Props
@@ -111,5 +106,4 @@ stylesheets. The `classStyle` prop allows for extensive customization, including
 ## Authors
 
 - [Yousef Zare](https://github.com/YousefZare2000)
-- [FastPanda99](https://github.com/fastpanda99)
 - [FreeCyberHawk](https://github.com/freecyberhawk)
