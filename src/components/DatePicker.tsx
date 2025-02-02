@@ -1,39 +1,5 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import moment from 'jalali-moment';
-import './DatePicker.css';
-
-interface DatePickerProps {
-    onChange: (date: string) => void;
-    value: string | null;
-    disabled?: boolean;
-    placeholderText?: string;
-    selectColor?: string;
-    size?: "xs" | "sm" | "md" | "lg" | "xl";
-    radius?: string;
-    styles?: {
-        input?: React.CSSProperties;
-        popup?: React.CSSProperties;
-    };
-    classNames?: {
-        input?: string;
-        popup?: {
-            root?: string;
-            header?: string;
-            arrow?: string;
-        };
-    };
-    dir?: "rtl" | "ltr";
-    textColor?: string;
-    borderColor?: string;
-}
-
-const SizeMap = {
-    xs: { inputText: 12, calenderText: 12, calenderHeader: 14, calenderArrow: 12 },
-    sm: { inputText: 14, calenderText: 14, calenderHeader: 16, calenderArrow: 14 },
-    md: { inputText: 16, calenderText: 16, calenderHeader: 18, calenderArrow: 16 },
-    lg: { inputText: 18, calenderText: 18, calenderHeader: 20, calenderArrow: 18 },
-    xl: { inputText: 20, calenderText: 20, calenderHeader: 22, calenderArrow: 20 },
-};
 
 // Helper function to check if the year is a leap year
 const isLeapYear = (year: number) => moment.jIsLeapYear(year);
@@ -47,38 +13,79 @@ const generateDaysInMonth = (year: number, month: number) => {
 
 // Persian months and week days
 const persianMonths = ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'];
-const persianWeeks = ['ش', 'ی', 'د', 'س', 'چ', 'پ', 'ج']; // Saturday to Friday
+const persianWeeks = ['ش', 'ی', 'د', 'س', 'چ', 'پ', 'ج'];
+
+interface DatePickerProps {
+    onChange: (date: string) => void;
+    value: string | null;
+    disabled?: boolean;
+    placeholderText?: string;
+    size?: "xs" | "sm" | "md" | "lg" | "xl";
+    dir?: "rtl" | "ltr";
+    // Tailwind class props
+    className?: string;
+    containerClassName?: string;
+    inputClassName?: string;
+    popupClassName?: string;
+    headerClassName?: string;
+    weeksClassName?: string;
+    weekItemClassName?: string;
+    daysClassName?: string;
+    dayClassName?: string;
+    selectedDayClassName?: string;
+    holidayClassName?: string;
+    todayClassName?: string;
+    monthsGridClassName?: string;
+    monthItemClassName?: string;
+    selectedMonthClassName?: string;
+    yearsGridClassName?: string;
+    yearItemClassName?: string;
+    selectedYearClassName?: string;
+    arrowClassName?: string;
+}
+
+const SizeMap = {
+    xs: { base: 'text-xs', header: 'text-sm' },
+    sm: { base: 'text-sm', header: 'text-base' },
+    md: { base: 'text-base', header: 'text-lg' },
+    lg: { base: 'text-lg', header: 'text-xl' },
+    xl: { base: 'text-xl', header: 'text-2xl' },
+};
 
 const DatePicker: React.FC<DatePickerProps> = ({
                                                    onChange,
                                                    value,
                                                    disabled = false,
                                                    placeholderText = 'تاریخ انتخاب کنید',
-                                                   styles,
-                                                   classNames,
                                                    size = 'md',
                                                    dir = 'rtl',
-                                                   radius = '6px',
-                                                   selectColor = '#555',
-                                                   textColor = '#424242',
-                                                   borderColor = 'gray'
+                                                   // Tailwind classes with defaults
+                                                   className = '',
+                                                   containerClassName = '',
+                                                   inputClassName = '',
+                                                   popupClassName = '',
+                                                   headerClassName = '',
+                                                   weeksClassName = '',
+                                                   weekItemClassName = '',
+                                                   daysClassName = '',
+                                                   dayClassName = '',
+                                                   selectedDayClassName = '',
+                                                   holidayClassName = '',
+                                                   todayClassName = '',
+                                                   monthsGridClassName = '',
+                                                   monthItemClassName = '',
+                                                   selectedMonthClassName = '',
+                                                   yearsGridClassName = '',
+                                                   yearItemClassName = '',
+                                                   selectedYearClassName = '',
+                                                   arrowClassName = '',
                                                }) => {
-
-
-    const [isFocused, setIsFocused] = React.useState(false);
-
+    const [isFocused, setIsFocused] = useState(false);
     const initialDate = value ? moment(value, 'jYYYY/jMM/jDD').locale('fa') : null;
-
     const [selectedDate, setSelectedDate] = useState<{ year: number; month: number; day: number } | null>(
         initialDate ? { year: initialDate.jYear(), month: initialDate.jMonth(), day: initialDate.jDate() } : null
     );
-
-    const displayedDate = selectedDate
-        ? `${selectedDate.year}/${String(selectedDate.month + 1).padStart(2, "0")}/${String(selectedDate.day).padStart(2, "0")}`
-        : placeholderText;
-
     const [currentYear, setCurrentYear] = useState(moment().jYear());
-    // const currentYearRef = useRef(moment().jYear());
     const [currentMonth, setCurrentMonth] = useState(moment().jMonth() + 1);
     const [view, setView] = useState<'day' | 'month' | 'year'>('day');
     const [visible, setVisible] = useState(false);
@@ -89,30 +96,49 @@ const DatePicker: React.FC<DatePickerProps> = ({
     const currentJalaliMonth = today.jMonth() + 1;
     const currentJalaliDay = today.jDate();
 
+    const displayedDate = selectedDate
+        ? `${selectedDate.year}/${String(selectedDate.month + 1).padStart(2, "0")}/${String(selectedDate.day).padStart(2, "0")}`
+        : placeholderText;
+
     // Determine if a day is a holiday (Friday in this case)
     const isHoliday = (year: number, month: number, day: number) => {
         const date = moment(`${year}/${month}/${day}`, 'jYYYY/jMM/jDD');
-        return date.jDay() === 6; // Friday (jDay() === 6)
+        return date.jDay() === 6;
     };
 
-    // Calculate the number of days in the current month
+    // Get the weekday offset for the first day of the month
+    const getWeekDayOffset = (year: number, month: number) => {
+        return moment(`${year}/${month}/01`, 'jYYYY/jMM/jDD').jDay();
+    };
+
+    const defaultClasses = {
+        container: `relative ${containerClassName}`,
+        input: `w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-opacity-50 ${SizeMap[size].base} ${inputClassName}`,
+        popup: `absolute mt-1 bg-white rounded-lg shadow-lg z-50 ${popupClassName}`,
+        header: `flex items-center justify-between p-2 border-b ${headerClassName}`,
+        weeks: `grid grid-cols-7 gap-1 p-2 text-center ${weeksClassName}`,
+        weekItem: `${weekItemClassName}`,
+        days: `grid grid-cols-7 gap-1 p-2 ${daysClassName}`,
+        day: `flex items-center justify-center p-2 rounded-md hover:bg-gray-100 cursor-pointer ${dayClassName}`,
+        selectedDay: `bg-blue-500 text-white hover:bg-blue-600 ${selectedDayClassName}`,
+        holiday: `text-red-500 ${holidayClassName}`,
+        today: `ring-2 ring-blue-500 ${todayClassName}`,
+        monthsGrid: `grid grid-cols-3 gap-2 p-2 ${monthsGridClassName}`,
+        monthItem: `p-2 text-center rounded-md hover:bg-gray-100 cursor-pointer ${monthItemClassName}`,
+        selectedMonth: `bg-blue-500 text-white hover:bg-blue-600 ${selectedMonthClassName}`,
+        yearsGrid: `grid grid-cols-3 gap-2 p-2 ${yearsGridClassName}`,
+        yearItem: `p-2 text-center rounded-md hover:bg-gray-100 cursor-pointer ${yearItemClassName}`,
+        selectedYear: `bg-blue-500 text-white hover:bg-blue-600 ${selectedYearClassName}`,
+        arrow: `cursor-pointer p-1 rounded hover:bg-gray-100 ${arrowClassName}`,
+    };
+
     const daysInMonth = generateDaysInMonth(currentYear, currentMonth);
-    const days = Array.from({length: daysInMonth}, (_, day) => ({
+    const days = Array.from({ length: daysInMonth }, (_, day) => ({
         year: currentYear,
         month: currentMonth,
         day: day + 1,
     }));
 
-    useEffect(() => {
-        const today = moment();
-        setCurrentYear(today.jYear());
-        setCurrentMonth(today.jMonth() + 1);
-    }, []);
-
-    // Get the weekday offset for the first day of the month
-    const getWeekDayOffset = (year: number, month: number) => {
-        return moment(`${year}/${month}/01`, 'jYYYY/jMM/jDD').jDay(); // Using jDay for correct Jalali day
-    };
     const weekDayOffset = getWeekDayOffset(currentYear, currentMonth);
 
     const handleSelectDate = (day: { year: number; month: number; day: number }) => {
@@ -141,12 +167,14 @@ const DatePicker: React.FC<DatePickerProps> = ({
     };
 
     const toggleDatePicker = () => {
-        if (!visible && selectedDate) {
-            setCurrentYear(selectedDate.year);
-            setCurrentMonth(selectedDate.month);
+        if (!disabled) {
+            if (!visible && selectedDate) {
+                setCurrentYear(selectedDate.year);
+                setCurrentMonth(selectedDate.month);
+            }
+            setVisible(!visible);
+            setView('day');
         }
-        setVisible(!visible);
-        setView('day');
     };
 
     useEffect(() => {
@@ -163,137 +191,86 @@ const DatePicker: React.FC<DatePickerProps> = ({
     }, [visible]);
 
     return (
-        <div ref={datePickerRef}
-             style={{borderRadius: `${radius}px`, direction: dir}}>
+        <div className={`${defaultClasses.container} ${className}`} ref={datePickerRef} dir={dir}>
             <div
-                className="datepicker-input"
-                onClick={() => {
-                    if (!isFocused) toggleDatePicker()
-                }}
-                onFocus={() => {
-                    toggleDatePicker()
-                    setIsFocused(true)
-                }}
+                className={`${defaultClasses.input} ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+                onClick={toggleDatePicker}
+                onFocus={() => setIsFocused(true)}
                 onBlur={() => setIsFocused(false)}
                 tabIndex={0}
-                style={{
-                    color: selectedDate ? textColor : '#6B7280',
-                    width: '100%',
-                    textAlign: dir == 'rtl' ? 'right' : 'left',
-                    fontSize: SizeMap[size].inputText,
-                    padding: '6px 12px',
-                    borderColor: isFocused ? selectColor : 'unset',
-                    boxShadow: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
-                    cursor: disabled ? 'not-allowed' : 'pointer',
-                    opacity: disabled ? 0.5 : 1,
-                    borderRadius: `${radius}px`,
-                    outline: 'none',
-                    ...styles?.input,
-                }}
             >
                 {displayedDate}
             </div>
+
             {visible && !disabled && (
-                <div className={`datepicker-popup ${classNames?.popup?.root}`} style={{borderRadius: `${radius}px`}}>
-                    <div className={`datepicker-header ${classNames?.popup?.header}`}
-                         style={{
-                             display: 'flex',
-                             alignItems: 'center',
-                             justifyContent: 'space-between',
-                             padding: '10px'
-                         }}>
-                        <div
-                            className={`datepicker-arrow ${classNames?.popup?.arrow}`}
+                <div className={defaultClasses.popup}>
+                    <div className={defaultClasses.header}>
+                        <button
+                            className={defaultClasses.arrow}
                             onClick={handlePrevMonth}
-                            tabIndex={0}
-                            style={{
-                                cursor: 'pointer',
-                                padding: '0 5px',
-                                fontSize: '16px'
-                            }}
                         >
-                            <svg width="16" height="16" viewBox="0 0 16 16" style={{fill: textColor}}>
-                                <path d="M5.707 4.293l1.414-1.414L11.414 8l-4.293 4.707-1.414-1.414L9.586 8z"/>
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                             </svg>
+                        </button>
+
+                        <div className="flex items-center space-x-2">
+                            <span
+                                className="cursor-pointer hover:text-blue-500"
+                                onClick={() => setView('month')}
+                            >
+                                {persianMonths[currentMonth - 1]}
+                            </span>
+                            <span>/</span>
+                            <span
+                                className="cursor-pointer hover:text-blue-500"
+                                onClick={() => setView('year')}
+                            >
+                                {currentYear}
+                            </span>
                         </div>
 
-                        {/* Month and Year View Toggle */}
-                        <div className="datepicker-header-month-year"
-                             style={{flex: 1, textAlign: 'center', fontWeight: 'bold', fontSize: '16px'}}>
-                            {view === 'day' ? (
-                                <span>
-                  <span onClick={() => setView('month')}
-                        tabIndex={0}
-                        className={'datepicker-month-button'}
-                        style={{color: textColor}}>{persianMonths[currentMonth - 1]}</span>
-                  <span style={{margin: '0 6px'}}/>
-                  <span onClick={() => setView('year')}
-                        tabIndex={0}
-                        className={'datepicker-year-button'}
-                        style={{color: textColor}}> {currentYear}</span>
-                </span>
-                            ) : view === 'month' ? (
-                                <span style={{color: textColor}}>انتخاب ماه</span>
-                            ) : (
-                                <span style={{color: textColor}}>انتخاب سال</span>
-                            )}
-                        </div>
-
-                        <div
-                            className={`datepicker-arrow ${classNames?.popup?.arrow}`}
+                        <button
+                            className={defaultClasses.arrow}
                             onClick={handleNextMonth}
-                            tabIndex={0}
-                            style={{
-                                cursor: 'pointer',
-                                padding: '0 5px',
-                                fontSize: '16px'
-                            }}
                         >
-                            <svg width="16" height="16" viewBox="0 0 16 16" style={{fill: textColor}}>
-                                <path d="M10.293 11.293l-1.414 1.414L4.586 8l4.293-4.707 1.414 1.414L7.414 8z"/>
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                             </svg>
-                        </div>
+                        </button>
                     </div>
 
                     {view === 'day' && (
                         <>
-                            <div className="datepicker-weeks">
+                            <div className={defaultClasses.weeks}>
                                 {persianWeeks.map((week) => (
-                                    <div className={"datepicker-week"} style={{color: textColor}} key={week}>
+                                    <div key={week} className={defaultClasses.weekItem}>
                                         {week}
                                     </div>
                                 ))}
                             </div>
-                            <div className="datepicker-days">
-                                {/* Empty cells before the start of the month */}
-                                {Array.from({length: weekDayOffset}, (_, i) => (
-                                    <div key={`empty-${i}`} className="datepicker-day empty"></div>
+                            <div className={defaultClasses.days}>
+                                {Array.from({ length: weekDayOffset }, (_, i) => (
+                                    <div key={`empty-${i}`} />
                                 ))}
-                                {/* Render actual days */}
                                 {days.map((day) => (
                                     <div
                                         key={`${day.year}-${day.month}-${day.day}`}
-                                        className={`datepicker-day ${
-                                            isHoliday(day.year, day.month, day.day) ? 'holiday' : ''
-                                        } ${selectedDate?.year === day.year &&
+                                        className={`
+                                            ${defaultClasses.day}
+                                            ${isHoliday(day.year, day.month, day.day) ? defaultClasses.holiday : ''}
+                                            ${selectedDate?.year === day.year &&
                                         selectedDate?.month === day.month &&
                                         selectedDate?.day === day.day
-                                            ? 'selected'
-                                            : ''}`}
-
-                                        style={{
-                                            borderRadius: `${radius}px`,
-                                            backgroundColor: selectedDate?.year === day.year &&
-                                            selectedDate?.month === day.month &&
-                                            selectedDate?.day === day.day ? selectColor : "transparent",
-                                            color: isHoliday(day.year, day.month, day.day) ? 'red' : selectedDate?.year === day.year &&
-                                            selectedDate?.month === day.month &&
-                                            selectedDate?.day === day.day ? selectColor : textColor,
-                                            border: currentJalaliYear === day.year && currentJalaliMonth === day.month && currentJalaliDay === day.day ? `1px solid ${selectColor}` : 'none',
-                                        }}
-                                        onClick={() => {
-                                            handleSelectDate(day)
-                                        }}
+                                            ? defaultClasses.selectedDay
+                                            : ''}
+                                            ${currentJalaliYear === day.year &&
+                                        currentJalaliMonth === day.month &&
+                                        currentJalaliDay === day.day
+                                            ? defaultClasses.today
+                                            : ''}
+                                        `}
+                                        onClick={() => handleSelectDate(day)}
                                     >
                                         {day.day}
                                     </div>
@@ -302,32 +279,18 @@ const DatePicker: React.FC<DatePickerProps> = ({
                         </>
                     )}
 
-                    {/* Month View */}
                     {view === 'month' && (
-                        <div className="datepicker-months-grid"
-                             style={{
-                                 display: 'grid',
-                                 gridTemplateColumns: 'repeat(3, 1fr)',
-                                 gap: '10px',
-                                 padding: '10px'
-                             }}>
+                        <div className={defaultClasses.monthsGrid}>
                             {persianMonths.map((month, index) => (
                                 <div
-                                    key={index}
-                                    className={`datepicker-month ${currentMonth === index + 1 ? 'selected' : ''}`}
+                                    key={month}
+                                    className={`
+                                        ${defaultClasses.monthItem}
+                                        ${currentMonth === index + 1 ? defaultClasses.selectedMonth : ''}
+                                    `}
                                     onClick={() => {
-                                        setCurrentMonth(index + 1); // Set the current month
-                                        setView('day'); // Switch back to day view
-                                    }}
-                                    style={{
-                                        fontSize: SizeMap[size].calenderText,
-                                        textAlign: 'center',
-                                        padding: '10px',
-                                        borderRadius: `${radius}px`,
-                                        border: currentJalaliMonth === index + 1 ? `1px solid ${selectColor}` : currentMonth === index + 1 ? 'none' : `1px solid ${borderColor}`,
-                                        cursor: 'pointer',
-                                        backgroundColor: currentMonth === index + 1 ? selectColor : "transparent",
-                                        color: currentMonth === index + 1 ? selectColor : textColor
+                                        setCurrentMonth(index + 1);
+                                        setView('day');
                                     }}
                                 >
                                     {month}
@@ -336,32 +299,18 @@ const DatePicker: React.FC<DatePickerProps> = ({
                         </div>
                     )}
 
-                    {/* Year View */}
                     {view === 'year' && (
-                        <div className="datepicker-years-grid"
-                             style={{
-                                 display: 'grid',
-                                 gridTemplateColumns: 'repeat(3, 1fr)',
-                                 gap: '10px',
-                                 padding: '10px'
-                             }}>
-                            {Array.from({length: 140}, (_, i) => currentJalaliYear - 50 + i).map(year => (
+                        <div className={defaultClasses.yearsGrid}>
+                            {Array.from({ length: 12 }, (_, i) => currentYear - 4 + i).map((year) => (
                                 <div
                                     key={year}
-                                    className={`datepicker-year ${currentYear === year ? 'selected' : ''}`}
+                                    className={`
+                                        ${defaultClasses.yearItem}
+                                        ${currentYear === year ? defaultClasses.selectedYear : ''}
+                                    `}
                                     onClick={() => {
-                                        setCurrentYear(year); // Set the selected year
-                                        setView('day'); // Switch to month view
-                                    }}
-                                    style={{
-                                        fontSize: SizeMap[size].calenderText,
-                                        textAlign: 'center',
-                                        padding: '10px',
-                                        borderRadius: `${radius}px`,
-                                        border: currentJalaliYear === year ? `1px solid ${selectColor}` : currentYear === year ? 'none' : `1px solid ${borderColor}`,
-                                        cursor: 'pointer',
-                                        backgroundColor: currentYear === year ? selectColor : "transparent",
-                                        color: currentYear === year ? selectColor : textColor
+                                        setCurrentYear(year);
+                                        setView('day');
                                     }}
                                 >
                                     {year}
