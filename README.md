@@ -1,21 +1,20 @@
-# Kara Persian DatePicker
 
-A modern, Persian date picker for React applications. This date picker supports both light and dark themes, providing a
-sleek and user-friendly interface for selecting dates.
+# Noa Jalali DatePicker
+
+A modern, Persian (Jalali) date picker for React applications. This date picker supports both light and dark themes, providing a sleek and user-friendly interface for selecting dates.
 
 ## Demo
 
 <div style="flex: 1">
 <div style="display:flex;flex-basis:30%;gap:20px">
-<img src="https://fastpanda99.github.io/kara_persian_datepicker/images/light_preview.png" alt="Kara Persian Datepicker Screenshot" width="300" height="350">
-<img src="https://fastpanda99.github.io/kara_persian_datepicker/images/dark_preview.png" alt="Kara Persian Datepicker Screenshot" width="300" height="350">
+<img src="https://freecyberhawk.github.io/noa_jalali_datepicker/images/light_preview.png" alt="Noa Jalali Datepicker Screenshot" width="300" height="350">
+<img src="https://freecyberhawk.github.io/noa_jalali_datepicker/images/dark_preview.png" alt="Noa Jalali Datepicker Screenshot" width="300" height="350">
 </div>
 </div>
 
-## ScreenShots
+## Screenshots
 
-Demo page: [Kara Persian Datepicker](https://fastpanda99.github.io/kara_persian_datepicker/)
-
+Demo page: [Noa Jalali Datepicker](https://freecyberhawk.github.io/noa_jalali_datepicker/)
 
 ## Installation
 
@@ -24,42 +23,52 @@ Demo page: [Kara Persian Datepicker](https://fastpanda99.github.io/kara_persian_
 To install the package via npm, run:
 
 ```bash
-npm install kara-persian-datepicker
+npm install noa-jalali-datepicker
 ```
 
 ### yarn
 
 ```bash
-yarn add kara-persian-datepicker
+yarn add noa-jalali-datepicker
 ```
 
 ## Usage
 
 ```javascript
-import React, {useState} from 'react';
-import {DatePicker} from 'kara-persian-datepicker';
-import 'kara-persian-datepicker/dist/index.css';
+import React, { useState } from 'react';
+import { DatePicker } from 'noa-jalali-datepicker';
+import 'noa-jalali-datepicker/dist/index.css';
 
 const App: React.FC = () => {
-    const [selectedDate, setSelectedDate] = useState < string | null > (null);
+    const [selectedDate, setSelectedDate] = useState<string | null>(null);
 
     return (
         <div>
-            <h1>Kara Persian DatePicker</h1>
+            <h1>Noa Jalali DatePicker</h1>
             <DatePicker
                 value={selectedDate}
-                textPlaceholder: 'Pick a date'
-            , // Placeholder text in Persian
-            onChange={(date) => {
-            console.log(date);
-            setSelectedDate(date);
-        }}
-            classStyle={{
-            radius: 8, // Border radius for rounded corners
-            borderColor: '#E2e8f0', // Border color for the date picker
-            selectedDayColor: '#007BFF', // Blue color for the selected day
-            inputStyle: {padding: '10px', fontSize: '16px'}, // Custom input styles
-        }}
+                placeholderText="Pick a date"
+                onChange={(date) => {
+                    console.log(date);
+                    setSelectedDate(date);
+                }}
+                selectColor="#007BFF"
+                size="md"
+                radius="8px"
+                styles={{
+                    input: { padding: '10px', fontSize: '16px' },
+                }}
+                classNames={{
+                    input: "datepicker-input",
+                    popup: {
+                        root: "datepicker-popup",
+                        header: "popup-header",
+                        arrow: "popup-arrow",
+                    },
+                }}
+                dir="rtl"
+                textColor="#000"
+                borderColor="#E2e8f0"
             />
             {selectedDate && <p>Selected Date: {selectedDate}</p>}
         </div>
@@ -67,8 +76,6 @@ const App: React.FC = () => {
 };
 
 export default App;
-
-
 ```
 
 ## Features
@@ -80,36 +87,40 @@ export default App;
 
 ## Props
 
-| Prop         | Type                   | Description                                                                                  |
-|--------------|------------------------|----------------------------------------------------------------------------------------------|
-| `value`      | `string`               | string Or null                                                                               |
-| `disabled`   | `boolean`              | Optional. If true, disables the date picker.                                                 |
-| `theme`      | `string`               | Optional. Allows you to set the theme ('light' or 'dark'). Default is 'light'.               |
-| `classStyle` | `object`               | Optional                                                                                     |
-| `onChange`   | `(date: Date) => void` | Callback function called when a date is selected. Receives the selected date as an argument. |
+| Prop                | Type                                  | Description                                             |
+|---------------------|---------------------------------------|---------------------------------------------------------|
+| `value`             | `string | null`                       | Selected date as a string or null.                      |
+| `onChange`          | `(date: string) => void`              | Callback when a date is selected.                       |
+| `disabled`          | `boolean`                             | Optional. If true, disables the date picker.            |
+| `placeholderText`   | `string`                              | Optional. Placeholder text for the input.               |
+| `selectColor`       | `string`                              | Optional. Color for the selected date.                  |
+| `size`              | `"xs" | "sm" | "md" | "lg" | "xl"`   | Optional. Size of the date picker. Default is `"md"`.   |
+| `radius`            | `string`                              | Optional. Border radius for the date picker.            |
+| `styles`            | `{ input?: React.CSSProperties; popup?: React.CSSProperties; }` | Optional. Custom styles for the input and popup.        |
+| `classNames`        | `{ input?: string; popup?: { root?: string, header?: string, arrow?: string; } }` | Optional. Custom class names for the input and popup.   |
+| `dir`               | `"rtl" | "ltr"`                       | Optional. Direction for text, either left-to-right or right-to-left. |
+| `textColor`         | `string`                              | Optional. Text color.                                   |
+| `borderColor`       | `string`                              | Optional. Border color for the date picker.             |
 
 ## classStyle Props
 
-| Prop                  | Value           | Description                        |
-|-----------------------|-----------------|------------------------------------|
-| `backgroundColor`     | `#000`          | Dark background color.             |
-| `textColor`           | `#fff`          | White text color.                  |
-| `textPlaceholder`     | `'Pick a date'` | Placeholder text (in Persian).     |
-| `textAlign`           | `right`         | Aligns text to the right.          |
-| `size`                | `md`            | Medium size of the date picker.    |
-| `radius`              | `8px`           | Border radius for rounded corners. |
-| `borderColor`         | `#E2e8f0`       | Border color for the date picker.  |
-| `selectedDayColor`    | `#007BFF`       | Blue color for the selected day.   |
-| `inputStyle.padding`  | `10px`          | Padding for the input field.       |
-| `inputStyle.fontSize` | `16px`          | Font size for the input text.      |
+| Prop                    | Value           | Description                        |
+|-------------------------|-----------------|------------------------------------|
+| `backgroundColor`       | `#000`          | Dark background color.             |
+| `textColor`             | `#fff`          | White text color.                  |
+| `textPlaceholder`       | `'Pick a date'` | Placeholder text (in Persian).     |
+| `textAlign`             | `right`         | Aligns text to the right.          |
+| `size`                  | `md`            | Medium size of the date picker.    |
+| `radius`                | `8px`           | Border radius for rounded corners. |
+| `borderColor`           | `#E2e8f0`       | Border color for the date picker.  |
+| `selectedDayColor`      | `#007BFF`       | Blue color for the selected day.   |
+| `inputStyle.padding`    | `10px`          | Padding for the input field.       |
+| `inputStyle.fontSize`   | `16px`          | Font size for the input text.      |
 
 ## Customization
 
-You can customize the appearance of the date picker by modifying the CSS file or overriding styles in your own
-stylesheets. The `classStyle` prop allows for extensive customization, including background color, text color, and size.
+You can customize the appearance of the date picker by modifying the CSS file or overriding styles in your own stylesheets. The `classStyle` prop allows for extensive customization, including background color, text color, and size.
 
 ## Authors
 
-- [Yousef Zare](https://github.com/YousefZare2000)
-- [FastPanda99](https://github.com/fastpanda99)
 - [FreeCyberHawk](https://github.com/freecyberhawk)

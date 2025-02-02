@@ -17,22 +17,22 @@ interface DatePickerProps {
     classNames?: {
         input?: string;
         popup?: {
-            root?: string,
-            header?: string
-            arrow?: string
+            root?: string;
+            header?: string;
+            arrow?: string;
         };
-    },
-    dir?: "rtl" | "ltr",
-    textColor?: string,
-    borderColor?: string
+    };
+    dir?: "rtl" | "ltr";
+    textColor?: string;
+    borderColor?: string;
 }
 
 const SizeMap = {
-    xs: {inputText: 12, calenderText: 12, calenderHeader: 14, calenderArrow: 12},
-    sm: {inputText: 14, calenderText: 14, calenderHeader: 16, calenderArrow: 14},
-    md: {inputText: 16, calenderText: 16, calenderHeader: 18, calenderArrow: 16},
-    lg: {inputText: 18, calenderText: 18, calenderHeader: 20, calenderArrow: 18},
-    xl: {inputText: 20, calenderText: 20, calenderHeader: 22, calenderArrow: 20},
+    xs: { inputText: 12, calenderText: 12, calenderHeader: 14, calenderArrow: 12 },
+    sm: { inputText: 14, calenderText: 14, calenderHeader: 16, calenderArrow: 14 },
+    md: { inputText: 16, calenderText: 16, calenderHeader: 18, calenderArrow: 16 },
+    lg: { inputText: 18, calenderText: 18, calenderHeader: 20, calenderArrow: 18 },
+    xl: { inputText: 20, calenderText: 20, calenderHeader: 22, calenderArrow: 20 },
 };
 
 // Helper function to check if the year is a leap year

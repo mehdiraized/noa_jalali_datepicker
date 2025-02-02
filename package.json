@@ -1,32 +1,22 @@
 {
-  "name": "kara-persian-datepicker",
-  "version": "2.0.0",
+  "name": "noa-jalali-datepicker",
+  "version": "0.1.0",
   "author": {
-    "name": "Yousef Zare",
-    "email": "yoosof.zare.2000@gmail.com",
-    "url": "https://github.com/yousefZare2000"
+    "name": "FreeCyberHawk",
+    "email": "freecyberhawk@gmail.com",
+    "url": "https://github.com/freecyberhawk"
   },
   "contributors": [
-    {
-      "name": "Yousef Zare",
-      "email": "yoosof.zare.2000@gmail.com",
-      "url": "https://github.com/yousefZare2000"
-    },
-    {
-      "name": "FastPanda99",
-      "email": "fastpanda99@gmail.com",
-      "url": "https://github.com/fastpanda99"
-    },
     {
       "name": "FreeCyberHawk",
       "email": "freecyberhawk@gmail.com",
       "url": "https://github.com/freecyberhawk"
     }
   ],
-  "homepage": "https://fastpanda99.github.io/kara_persian_datepicker/",
+  "homepage": "https://freecyberhawk.github.io/noa_jalali_datepicker/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/fastpanda99/kara_persian_datepicker"
+    "url": "https://github.com/freecyberhawk/noa_jalali_datepicker.git"
   },
   "main": "dist/index.js",
   "scripts": {
@@ -38,17 +28,21 @@
     "README.md"
   ],
   "keywords": [
-    "datepicker",
-    "react",
-    "typescript",
-    "next",
-    "nextjs",
-    "persian",
-    "persian date",
-    "jalali date",
-    "jdate next",
-    "farsi date",
-    "taghvim farsi"
+    "jalali-datepicker",
+    "persian-datepicker",
+    "react-jalali-date",
+    "farsi-datepicker",
+    "jalali-calendar",
+    "persian-calendar",
+    "jalali-date-picker",
+    "react-persian-calendar",
+    "jalali-moment",
+    "iranian-date-picker",
+    "shamsi-date",
+    "react-date-picker",
+    "farsi-calendar",
+    "nextjs-persian-datepicker",
+    "taghvim-farsi"
   ],
   "license": "MIT",
   "devDependencies": {
