@@ -112,3 +112,4 @@ stylesheets. The `classStyle` prop allows for extensive customization, including
 
 - [Yousef Zare](https://github.com/YousefZare2000)
 - [FastPanda99](https://github.com/fastpanda99)
+- [FreeCyberHawk](https://github.com/freecyberhawk)

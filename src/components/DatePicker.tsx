@@ -6,18 +6,25 @@ interface DatePickerProps {
     onChange: (date: string) => void;
     value: string | null;
     disabled?: boolean;
-    theme?: 'dark' | 'light';
-    textPlaceholder?: string;
-    classStyle?: {
-        backgroundColor?: string;
-        textColor?: string;
-        textAlign?: 'right' | 'left' | 'center';
-        size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-        radius?: number;
-        borderColor?: string;
-        selectedDayColor?: string;
-        inputStyle?: React.CSSProperties;
+    placeholderText?: string;
+    selectColor?: string;
+    size?: "xs" | "sm" | "md" | "lg" | "xl";
+    radius?: string;
+    styles?: {
+        input?: React.CSSProperties;
+        popup?: React.CSSProperties;
     };
+    classNames?: {
+        input?: string;
+        popup?: {
+            root?: string,
+            header?: string
+            arrow?: string
+        };
+    },
+    dir?: "rtl" | "ltr",
+    textColor?: string,
+    borderColor?: string
 }
 
 const SizeMap = {
@@ -46,31 +53,29 @@ const DatePicker: React.FC<DatePickerProps> = ({
                                                    onChange,
                                                    value,
                                                    disabled = false,
-                                                   theme = 'light',
-                                                   textPlaceholder = 'تاریخ انتخاب کنید',
-                                                   classStyle
+                                                   placeholderText = 'تاریخ انتخاب کنید',
+                                                   styles,
+                                                   classNames,
+                                                   size = 'md',
+                                                   dir = 'rtl',
+                                                   radius = '6px',
+                                                   selectColor = '#555',
+                                                   textColor = '#424242',
+                                                   borderColor = 'gray'
                                                }) => {
-    const {
-        backgroundColor = theme === 'dark' ? '#09090B' : '#fff',
-        textColor = theme === 'dark' ? '#fff' : '#09090B',
-        textAlign = 'right',
-        size = 'sm',
-        radius = 6,
-        borderColor = '#E2e8f0',
-        selectedDayColor = theme === 'dark' ? '#fff' : '#000',
-        inputStyle,
-    } = classStyle || {};
+
 
     const [isFocused, setIsFocused] = React.useState(false);
 
-    const initialDate = value ? moment.from(value, 'fa', 'jYYYY/jMM/jDD') : null;
+    const initialDate = value ? moment(value, 'jYYYY/jMM/jDD').locale('fa') : null;
+
     const [selectedDate, setSelectedDate] = useState<{ year: number; month: number; day: number } | null>(
-        initialDate ? {year: initialDate.jYear(), month: initialDate.jMonth() + 1, day: initialDate.jDate()} : null
+        initialDate ? { year: initialDate.jYear(), month: initialDate.jMonth(), day: initialDate.jDate() } : null
     );
 
     const displayedDate = selectedDate
-        ? `${selectedDate.year}/${selectedDate.month}/${selectedDate.day}`
-        : textPlaceholder;
+        ? `${selectedDate.year}/${String(selectedDate.month + 1).padStart(2, "0")}/${String(selectedDate.day).padStart(2, "0")}`
+        : placeholderText;
 
     const [currentYear, setCurrentYear] = useState(moment().jYear());
     // const currentYearRef = useRef(moment().jYear());
@@ -159,7 +164,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
 
     return (
         <div ref={datePickerRef}
-             style={{borderRadius: `${radius}px`, direction: 'rtl', backgroundColor: backgroundColor}}>
+             style={{borderRadius: `${radius}px`, direction: dir}}>
             <div
                 className="datepicker-input"
                 onClick={() => {
@@ -174,23 +179,23 @@ const DatePicker: React.FC<DatePickerProps> = ({
                 style={{
                     color: selectedDate ? textColor : '#6B7280',
                     width: '100%',
-                    textAlign: textAlign,
+                    textAlign: dir == 'rtl' ? 'right' : 'left',
                     fontSize: SizeMap[size].inputText,
                     padding: '6px 12px',
-                    borderColor: isFocused ? selectedDayColor : borderColor,
+                    borderColor: isFocused ? selectColor : 'unset',
                     boxShadow: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
                     cursor: disabled ? 'not-allowed' : 'pointer',
                     opacity: disabled ? 0.5 : 1,
                     borderRadius: `${radius}px`,
                     outline: 'none',
-                    ...inputStyle,
+                    ...styles?.input,
                 }}
             >
                 {displayedDate}
             </div>
             {visible && !disabled && (
-                <div className="datepicker-popup" style={{borderColor: borderColor, borderRadius: `${radius}px`}}>
-                    <div className="datepicker-header"
+                <div className={`datepicker-popup ${classNames?.popup?.root}`} style={{borderRadius: `${radius}px`}}>
+                    <div className={`datepicker-header ${classNames?.popup?.header}`}
                          style={{
                              display: 'flex',
                              alignItems: 'center',
@@ -198,7 +203,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
                              padding: '10px'
                          }}>
                         <div
-                            className="datepicker-arrow"
+                            className={`datepicker-arrow ${classNames?.popup?.arrow}`}
                             onClick={handlePrevMonth}
                             tabIndex={0}
                             style={{
@@ -235,7 +240,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
                         </div>
 
                         <div
-                            className="datepicker-arrow"
+                            className={`datepicker-arrow ${classNames?.popup?.arrow}`}
                             onClick={handleNextMonth}
                             tabIndex={0}
                             style={{
@@ -280,11 +285,11 @@ const DatePicker: React.FC<DatePickerProps> = ({
                                             borderRadius: `${radius}px`,
                                             backgroundColor: selectedDate?.year === day.year &&
                                             selectedDate?.month === day.month &&
-                                            selectedDate?.day === day.day ? selectedDayColor : "transparent",
+                                            selectedDate?.day === day.day ? selectColor : "transparent",
                                             color: isHoliday(day.year, day.month, day.day) ? 'red' : selectedDate?.year === day.year &&
                                             selectedDate?.month === day.month &&
-                                            selectedDate?.day === day.day ? backgroundColor : textColor,
-                                            border: currentJalaliYear === day.year && currentJalaliMonth === day.month && currentJalaliDay === day.day ? `1px solid ${selectedDayColor}` : 'none',
+                                            selectedDate?.day === day.day ? selectColor : textColor,
+                                            border: currentJalaliYear === day.year && currentJalaliMonth === day.month && currentJalaliDay === day.day ? `1px solid ${selectColor}` : 'none',
                                         }}
                                         onClick={() => {
                                             handleSelectDate(day)
@@ -319,10 +324,10 @@ const DatePicker: React.FC<DatePickerProps> = ({
                                         textAlign: 'center',
                                         padding: '10px',
                                         borderRadius: `${radius}px`,
-                                        border: currentJalaliMonth === index + 1 ? `1px solid ${selectedDayColor}` : currentMonth === index + 1 ? 'none' : `1px solid ${borderColor}`,
+                                        border: currentJalaliMonth === index + 1 ? `1px solid ${selectColor}` : currentMonth === index + 1 ? 'none' : `1px solid ${borderColor}`,
                                         cursor: 'pointer',
-                                        backgroundColor: currentMonth === index + 1 ? selectedDayColor : "transparent",
-                                        color: currentMonth === index + 1 ? backgroundColor : textColor
+                                        backgroundColor: currentMonth === index + 1 ? selectColor : "transparent",
+                                        color: currentMonth === index + 1 ? selectColor : textColor
                                     }}
                                 >
                                     {month}
@@ -353,10 +358,10 @@ const DatePicker: React.FC<DatePickerProps> = ({
                                         textAlign: 'center',
                                         padding: '10px',
                                         borderRadius: `${radius}px`,
-                                        border: currentJalaliYear === year ? `1px solid ${selectedDayColor}` : currentYear === year ? 'none' : `1px solid ${borderColor}`,
+                                        border: currentJalaliYear === year ? `1px solid ${selectColor}` : currentYear === year ? 'none' : `1px solid ${borderColor}`,
                                         cursor: 'pointer',
-                                        backgroundColor: currentYear === year ? selectedDayColor : "transparent",
-                                        color: currentYear === year ? backgroundColor : textColor
+                                        backgroundColor: currentYear === year ? selectColor : "transparent",
+                                        color: currentYear === year ? selectColor : textColor
                                     }}
                                 >
                                     {year}

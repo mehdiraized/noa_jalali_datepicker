@@ -21,6 +21,7 @@
     color: inherit; /* Inherit from props */
     font-family: inherit; /* Inherit font-family from parent */
     transition: background-color 0.3s ease;
+    min-height: 36px;
 }
 
 .datepicker-popup {
