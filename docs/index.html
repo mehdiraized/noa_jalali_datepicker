@@ -1,96 +1,188 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-          content="Noa Jalali Date Picker - A modern, customizable Persian date picker for React applications with light and dark themes.">
-    <meta name="keywords"
-          content="Persian DatePicker, React, Noa, light theme, dark theme, customization, persian date, jalali date">
-    <meta name="author" content="Yousef Zare, FastPanda99">
-    <title>Noa Jalali Date Picker</title>
-    <link rel="stylesheet" href="./styles.css">
-    <meta name="google-site-verification" content="JCDrOstDCHjV8NjaViUwF0X62l8ZsvlUi30Bf3l5f50" />
-</head>
-<body>
-<!-- Header Section -->
-<header>
-    <div class="container">
-        <h1>Noa Jalali Date Picker</h1>
-        <p>A modern, Persian date picker for React applications with light and dark themes.</p>
-    </div>
-</header>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta
+			name="description"
+			content="Noa Jalali Date Picker - A modern, customizable Persian date picker for React applications with light and dark themes."
+		/>
+		<meta
+			name="keywords"
+			content="Persian DatePicker, React, Noa, light theme, dark theme, customization, persian date, jalali date"
+		/>
+		<meta name="author" content="Yousef Zare, FastPanda99" />
+		<title>Noa Jalali Date Picker</title>
+		<link rel="stylesheet" href="./styles.css" />
+		<meta
+			name="google-site-verification"
+			content="JCDrOstDCHjV8NjaViUwF0X62l8ZsvlUi30Bf3l5f50"
+		/>
+		<!-- React and ReactDOM CDN -->
+		<script
+			crossorigin
+			src="https://unpkg.com/react@18/umd/react.production.min.js"
+		></script>
+		<script
+			crossorigin
+			src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"
+		></script>
+		<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+		<!-- Tailwind CSS -->
+		<script src="https://cdn.tailwindcss.com"></script>
+		<script>
+			tailwind.config = {
+				darkMode: 'class',
+				theme: {
+					extend: {},
+				},
+			};
+		</script>
+		<!-- Jalali Moment -->
+		<script src="https://unpkg.com/jalali-moment@3.3.11/dist/jalali-moment.browser.min.js"></script>
+		<!-- Classnames -->
+		<script src="https://unpkg.com/classnames@2.5.1/index.js"></script>
+		<!-- Noa Jalali DatePicker -->
+		<script src="./noa-jalali-datepicker.js"></script>
+	</head>
+	<body>
+		<!-- Header Section -->
+		<header>
+			<div class="container">
+				<h1>Noa Jalali Date Picker</h1>
+				<p>
+					A modern, Persian date picker for React applications with light and
+					dark themes.
+				</p>
+				<div class="header-buttons">
+					<button onclick="toggleTheme()" class="theme-toggle">
+						<span id="theme-icon">🌙</span> Toggle Theme
+					</button>
+				</div>
+			</div>
+		</header>
 
-<!-- Features Section -->
-<main>
-    <section id="features" class="section">
-        <div class="container">
-            <h2>Features</h2>
-            <div class="features-grid">
-                <article class="feature">
-                    <img src="./images/light_preview.png" alt="Light Theme Preview">
-                    <h3>Light Theme</h3>
-                </article>
-                <article class="feature">
-                    <img src="./images/dark_preview.png" alt="Dark Theme Preview">
-                    <h3>Dark Theme</h3>
-                </article>
-                <article class="feature">
-                    <img src="./images/change_color_orange.png" alt="Customization Options">
-                    <h3>Customization</h3>
-                </article>
-                <article class="feature">
-                    <img src="./images/change_color.png" alt="Modern Design Example">
-                    <h3>Modern Design</h3>
-                </article>
-                <article class="feature">
-                    <img src="./images/year_selector.png" alt="Year Selector Example">
-                    <h3>Year List</h3>
-                </article>
-                <article class="feature">
-                    <img src="./images/month_selector.png" alt="Month Selector Example">
-                    <h3>Month List</h3>
-                </article>
-            </div>
-        </div>
-    </section>
+		<!-- Live Demo Section -->
+		<main>
+			<section id="demo" class="section">
+				<div class="container">
+					<h2>Live Demo</h2>
+					<div class="demo-container">
+						<div class="demo-card">
+							<h3>Basic DatePicker</h3>
+							<div id="basic-demo" class="demo-item"></div>
+							<div class="demo-info">
+								<p>
+									<strong>Selected Date:</strong>
+									<span id="basic-selected">No date selected</span>
+								</p>
+							</div>
+						</div>
 
-    <!-- Installation Section -->
-    <section id="installation" class="section">
-        <div class="container">
-            <h2>How to Install</h2>
-            <div class="install-steps">
-                <article class="step">
-                    <h3>Install with npm</h3>
-                    <pre><code>npm install noa-jalali-datepicker</code></pre>
-                </article>
-                <article class="step">
-                    <h3>Install with yarn</h3>
-                    <pre><code>yarn add noa-jalali-datepicker</code></pre>
-                </article>
-            </div>
-        </div>
-    </section>
+						<div class="demo-card">
+							<h3>Customized DatePicker</h3>
+							<div id="custom-demo" class="demo-item"></div>
+							<div class="demo-info">
+								<p>
+									<strong>Selected Date:</strong>
+									<span id="custom-selected">No date selected</span>
+								</p>
+							</div>
+						</div>
 
-    <!-- Usage Section -->
-    <section id="transition" class="section">
-        <div class="container">
-            <h2>Get Started</h2>
-            <p>After installing the package via <code>npm</code> or <code>yarn</code>, you can easily integrate the
-                <strong>Noa Jalali Date Picker</strong> into your React project. The following usage example
-                demonstrates how to import the date picker, manage its state, and customize its appearance using various
-                props. Whether you prefer a light or dark theme, our date picker is fully customizable to match your
-                design requirements. Check out the code snippet below to see how simple it is to use!</p>
-        </div>
-    </section>
+						<div class="demo-card">
+							<h3>Dark Theme DatePicker</h3>
+							<div id="dark-demo" class="demo-item dark-demo"></div>
+							<div class="demo-info">
+								<p>
+									<strong>Selected Date:</strong>
+									<span id="dark-selected">No date selected</span>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
 
-    <section id="usage" class="section">
-        <div class="container">
-            <h2>Usage Example</h2>
-            <pre><code>
+			<!-- Features Section -->
+			<section id="features" class="section">
+				<div class="container">
+					<h2>Features</h2>
+					<div class="features-grid">
+						<article class="feature">
+							<div class="feature-icon">🎨</div>
+							<h3>Light Theme</h3>
+							<p>Clean and modern light theme design</p>
+						</article>
+						<article class="feature">
+							<div class="feature-icon">🌙</div>
+							<h3>Dark Theme</h3>
+							<p>Elegant dark theme for better UX</p>
+						</article>
+						<article class="feature">
+							<div class="feature-icon">⚙️</div>
+							<h3>Customization</h3>
+							<p>Fully customizable colors and styles</p>
+						</article>
+						<article class="feature">
+							<div class="feature-icon">📱</div>
+							<h3>Responsive</h3>
+							<p>Works perfectly on all devices</p>
+						</article>
+						<article class="feature">
+							<div class="feature-icon">📅</div>
+							<h3>Year Selector</h3>
+							<p>Easy year navigation and selection</p>
+						</article>
+						<article class="feature">
+							<div class="feature-icon">🗓️</div>
+							<h3>Month Selector</h3>
+							<p>Quick month switching functionality</p>
+						</article>
+					</div>
+				</div>
+			</section>
+
+			<!-- Installation Section -->
+			<section id="installation" class="section">
+				<div class="container">
+					<h2>How to Install</h2>
+					<div class="install-steps">
+						<article class="step">
+							<h3>Install with npm</h3>
+							<pre><code>npm install noa-jalali-datepicker</code></pre>
+						</article>
+						<article class="step">
+							<h3>Install with yarn</h3>
+							<pre><code>yarn add noa-jalali-datepicker</code></pre>
+						</article>
+					</div>
+				</div>
+			</section>
+
+			<!-- Usage Section -->
+			<section id="transition" class="section">
+				<div class="container">
+					<h2>Get Started</h2>
+					<p>
+						After installing the package via <code>npm</code> or
+						<code>yarn</code>, you can easily integrate the
+						<strong>Noa Jalali Date Picker</strong> into your React project. The
+						following usage example demonstrates how to import the date picker,
+						manage its state, and customize its appearance using various props.
+						Whether you prefer a light or dark theme, our date picker is fully
+						customizable to match your design requirements. Check out the code
+						snippet below to see how simple it is to use!
+					</p>
+				</div>
+			</section>
+
+			<section id="usage" class="section">
+				<div class="container">
+					<h2>Usage Example</h2>
+					<pre><code>
 import React, { useState } from 'react';
 import { DatePicker } from 'noa-jalali-datepicker';
-import 'noa-jalali-datepicker/dist/index.css';
 
 const App = () => {
     const [selectedDate, setSelectedDate] = useState(null);
@@ -99,16 +191,11 @@ const App = () => {
         &lt;div&gt;
             &lt;h1&gt;Noa Jalali Date Picker&lt;/h1&gt;
             &lt;DatePicker
-                textPlaceholder: 'Pick a date',
                 value={selectedDate}
                 onChange={(date) => setSelectedDate(date)}
-                classStyle={{
-                    size: 'md',
-                    radius: 8,
-                    borderColor: '#E2e8f0',
-                    selectedDayColor: '#007BFF',
-                    inputStyle: { padding: '10px', fontSize: '16px' }
-                }}
+                placeholderText="انتخاب تاریخ"
+                size="md"
+                dir="rtl"
             /&gt;
         &lt;/div&gt;
     );
@@ -116,26 +203,227 @@ const App = () => {
 
 export default App;
                 </code></pre>
-        </div>
-    </section>
+				</div>
+			</section>
 
-    <!-- Authors Section -->
-    <section id="authors" class="section">
-        <div class="container">
-            <h2>Authors</h2>
-            <ul>
-                <li><a href="https://github.com/YousefZare2000" target="_blank">Yousef Zare</a></li>
-                <li><a href="https://github.com/fastpanda99" target="_blank">FastPanda99</a></li>
-            </ul>
-        </div>
-    </section>
-</main>
+			<!-- Authors Section -->
+			<section id="authors" class="section">
+				<div class="container">
+					<h2>Authors</h2>
+					<ul>
+						<li>
+							<a href="https://github.com/YousefZare2000" target="_blank"
+								>Yousef Zare</a
+							>
+						</li>
+						<li>
+							<a href="https://github.com/fastpanda99" target="_blank"
+								>FastPanda99</a
+							>
+						</li>
+					</ul>
+				</div>
+			</section>
+		</main>
 
-<!-- Footer -->
-<footer>
-    <div class="container">
-        <p>&copy; 2024 Noa Jalali Date Picker. All rights reserved.</p>
-    </div>
-</footer>
-</body>
+		<!-- Footer -->
+		<footer>
+			<div class="container">
+				<p>&copy; 2024 Noa Jalali Date Picker. All rights reserved.</p>
+			</div>
+		</footer>
+
+		<!-- Demo Script -->
+		<script type="text/babel">
+			// Import the actual DatePicker component
+			const { DatePicker } = window.NoaJalaliDatepicker || {};
+
+			console.log('Available DatePicker:', DatePicker);
+			console.log('NoaJalaliDatepicker:', window.NoaJalaliDatepicker);
+
+			// Fallback DatePicker component if the actual one is not available
+			const FallbackDatePicker = ({
+				placeholder,
+				onChange,
+				className,
+				style,
+			}) => {
+				const [isOpen, setIsOpen] = React.useState(false);
+				const [selectedDate, setSelectedDate] = React.useState('');
+
+				const handleDateSelect = (date) => {
+					setSelectedDate(date);
+					onChange && onChange(date);
+					setIsOpen(false);
+				};
+
+				const generateCalendar = () => {
+					const today = new Date();
+					const currentMonth = today.getMonth();
+					const currentYear = today.getFullYear();
+
+					const daysInMonth = new Date(
+						currentYear,
+						currentMonth + 1,
+						0
+					).getDate();
+					const firstDayOfMonth = new Date(
+						currentYear,
+						currentMonth,
+						1
+					).getDay();
+
+					const days = [];
+					for (let i = 0; i < firstDayOfMonth; i++) {
+						days.push(
+							<div key={`empty-${i}`} className="calendar-day empty"></div>
+						);
+					}
+
+					for (let day = 1; day <= daysInMonth; day++) {
+						days.push(
+							<div
+								key={day}
+								className="calendar-day"
+								onClick={() =>
+									handleDateSelect(
+										`${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
+									)
+								}
+							>
+								{day}
+							</div>
+						);
+					}
+
+					return days;
+				};
+
+				return (
+					<div className={`datepicker-wrapper ${className}`} style={style}>
+						<div
+							className="datepicker-input"
+							onClick={() => setIsOpen(!isOpen)}
+						>
+							{selectedDate || placeholder}
+						</div>
+						{isOpen && (
+							<div className="datepicker-dropdown">
+								<div className="calendar-header">
+									<button onClick={() => setIsOpen(false)}>&times;</button>
+								</div>
+								<div className="calendar-grid">
+									<div className="calendar-weekdays">
+										<div>Sun</div>
+										<div>Mon</div>
+										<div>Tue</div>
+										<div>Wed</div>
+										<div>Thu</div>
+										<div>Fri</div>
+										<div>Sat</div>
+									</div>
+									<div className="calendar-days">{generateCalendar()}</div>
+								</div>
+							</div>
+						)}
+					</div>
+				);
+			};
+
+			// Render demos with actual DatePicker if available
+			if (DatePicker) {
+				console.log('Using actual DatePicker component!');
+
+				ReactDOM.render(
+					React.createElement(DatePicker, {
+						placeholderText: 'انتخاب تاریخ',
+						onChange: (date) =>
+							(document.getElementById('basic-selected').textContent = date),
+						size: 'md',
+						dir: 'rtl',
+					}),
+					document.getElementById('basic-demo')
+				);
+
+				ReactDOM.render(
+					React.createElement(DatePicker, {
+						placeholderText: 'Custom DatePicker',
+						onChange: (date) =>
+							(document.getElementById('custom-selected').textContent = date),
+						size: 'lg',
+						dir: 'rtl',
+						inputClassName:
+							'w-full px-4 py-3 border-2 border-blue-500 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 bg-blue-50',
+						selectedDayClassName: 'bg-blue-600 text-white hover:bg-blue-700',
+					}),
+					document.getElementById('custom-demo')
+				);
+
+				ReactDOM.render(
+					React.createElement(DatePicker, {
+						placeholderText: 'Dark Theme',
+						onChange: (date) =>
+							(document.getElementById('dark-selected').textContent = date),
+						size: 'md',
+						dir: 'rtl',
+						inputClassName:
+							'w-full px-3 py-2 border border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 bg-gray-700 text-white',
+						popupClassName:
+							'absolute top-full left-0 mt-1 bg-gray-800 border border-gray-600 rounded-lg shadow-lg z-50 min-w-[280px]',
+						selectedDayClassName: 'bg-blue-600 text-white hover:bg-blue-700',
+					}),
+					document.getElementById('dark-demo')
+				);
+			} else {
+				console.log('Using fallback DatePicker component');
+				const DatePickerComponent = FallbackDatePicker;
+
+				ReactDOM.render(
+					<DatePickerComponent
+						placeholder="انتخاب تاریخ"
+						onChange={(date) =>
+							(document.getElementById('basic-selected').textContent = date)
+						}
+					/>,
+					document.getElementById('basic-demo')
+				);
+
+				ReactDOM.render(
+					<DatePickerComponent
+						placeholder="Custom DatePicker"
+						onChange={(date) =>
+							(document.getElementById('custom-selected').textContent = date)
+						}
+					/>,
+					document.getElementById('custom-demo')
+				);
+
+				ReactDOM.render(
+					<DatePickerComponent
+						placeholder="Dark Theme"
+						onChange={(date) =>
+							(document.getElementById('dark-selected').textContent = date)
+						}
+						className="dark-theme"
+					/>,
+					document.getElementById('dark-demo')
+				);
+			}
+		</script>
+
+		<script>
+			function toggleTheme() {
+				const body = document.body;
+				const themeIcon = document.getElementById('theme-icon');
+
+				if (body.classList.contains('dark-theme')) {
+					body.classList.remove('dark-theme');
+					themeIcon.textContent = '🌙';
+				} else {
+					body.classList.add('dark-theme');
+					themeIcon.textContent = '☀️';
+				}
+			}
+		</script>
+	</body>
 </html>

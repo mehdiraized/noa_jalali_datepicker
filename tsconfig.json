@@ -1,15 +1,17 @@
 {
-  "compilerOptions": {
-    "target": "es5",
-    "module": "ES2020",
-    "jsx": "react",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "outDir": "./dist",
-    "declaration": true,
-    "moduleResolution": "node"
-  },
-  "include": ["src/**/*"]
+	"compilerOptions": {
+		"target": "es2017",
+		"lib": ["es2017", "dom"],
+		"module": "ES2020",
+		"jsx": "react",
+		"strict": true,
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"forceConsistentCasingInFileNames": true,
+		"outDir": "./dist",
+		"declaration": true,
+		"moduleResolution": "node",
+		"allowSyntheticDefaultImports": true
+	},
+	"include": ["src/**/*"]
 }

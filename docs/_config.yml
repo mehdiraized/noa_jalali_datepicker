@@ -1,0 +1,52 @@
+# GitHub Pages Configuration
+title: Noa Jalali Date Picker
+description: A modern, Persian date picker for React applications with light and dark themes
+url: 'https://freecyberhawk.github.io'
+baseurl: '/noa_jalali_datepicker'
+
+# Build settings
+theme: jekyll-theme-cayman
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# SEO settings
+author:
+  name: 'Yousef Zare, FastPanda99'
+  email: 'yousefZare2000@gmail.com'
+  bio: 'React developers creating modern Persian date picker'
+  location: 'Iran'
+  links:
+    - label: 'GitHub'
+      icon: 'fab fa-fw fa-github'
+      url: 'https://github.com/freecyberhawk/noa_jalali_datepicker'
+
+# Social media
+social:
+  name: 'Noa Jalali Date Picker'
+  links:
+    - 'https://github.com/freecyberhawk/noa_jalali_datepicker'
+
+# Collections
+collections:
+  docs:
+    output: true
+    permalink: /:collection/:name/
+
+# Defaults
+defaults:
+  - scope:
+      path: ''
+      type: 'docs'
+    values:
+      layout: 'default'
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/

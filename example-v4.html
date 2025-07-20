@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en" dir="rtl">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Noa Jalali DatePicker - Tailwind CSS v4 Example</title>
+		<script src="https://cdn.tailwindcss.com"></script>
+		<script>
+			tailwind.config = {
+				darkMode: 'class',
+				theme: {
+					extend: {},
+				},
+			};
+		</script>
+	</head>
+	<body class="bg-gray-50 dark:bg-gray-900 min-h-screen p-8">
+		<div class="max-w-md mx-auto">
+			<h1
+				class="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center"
+			>
+				Noa Jalali DatePicker
+			</h1>
+			<h2
+				class="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-4 text-center"
+			>
+				Tailwind CSS v4 Compatible
+			</h2>
+
+			<div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+				<div id="datepicker-container" class="w-full"></div>
+
+				<div class="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+					<h3 class="font-semibold text-blue-900 dark:text-blue-100 mb-2">
+						Selected Date:
+					</h3>
+					<p id="selected-date" class="text-blue-700 dark:text-blue-300">
+						No date selected
+					</p>
+				</div>
+			</div>
+
+			<div class="mt-8 text-center">
+				<button
+					onclick="toggleDarkMode()"
+					class="px-4 py-2 bg-gray-800 dark:bg-white text-white dark:text-gray-800 rounded-lg hover:bg-gray-700 dark:hover:bg-gray-100 transition-colors"
+				>
+					Toggle Dark Mode
+				</button>
+			</div>
+		</div>
+
+		<script type="module">
+			// This is a demonstration of how the component would be used
+			// In a real React application, you would import the component
+
+			function toggleDarkMode() {
+				document.documentElement.classList.toggle('dark');
+			}
+
+			// Simulate the date picker functionality for demonstration
+			const container = document.getElementById('datepicker-container');
+			const selectedDateElement = document.getElementById('selected-date');
+
+			// Create a simple input that looks like the date picker
+			const input = document.createElement('div');
+			input.className =
+				'w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 bg-white dark:bg-gray-700 text-gray-900 dark:text-white cursor-pointer text-sm';
+			input.textContent = 'تاریخ انتخاب کنید';
+			input.onclick = () => {
+				const date = prompt('Enter a date (YYYY-MM-DD):', '2024-01-01');
+				if (date) {
+					selectedDateElement.textContent = date;
+					input.textContent = date;
+				}
+			};
+
+			container.appendChild(input);
+		</script>
+	</body>
+</html>
